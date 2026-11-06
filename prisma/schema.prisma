@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Channel {
+  EMAIL
+  LINKEDIN
+  FORM
+  PHONE
+  OTHER
+}
+
+enum Status {
+  NEW
+  CONTACTED
+  REPLIED
+  WON
+  LOST
+}
+
+model Contact {
+  id             String    @id @default(cuid())
+  name           String
+  company        String?
+  email          String?
+  url            String?
+  channel        Channel   @default(EMAIL)
+  status         Status    @default(NEW)
+  tags           String    @default("")
+  notes          String    @default("")
+  nextFollowUpAt DateTime?
+  lastTouchedAt  DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  touches        Touch[]
+
+  @@index([status])
+  @@index([channel])
+  @@index([nextFollowUpAt])
+}
+
+model Touch {
+  id        String   @id @default(cuid())
+  contactId String
+  contact   Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  date      DateTime
+  channel   Channel
+  note      String   @default("")
+  createdAt DateTime @default(now())
+
+  @@index([contactId, date])
+}
+
+model InboxItem {
+  id        String   @id @default(cuid())
+  title     String
+  body      String
+  href      String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model AppSetting {
+  id                   String    @id @default("default")
+  digestEmail          String?
+  browserNotifications Boolean   @default(true)
+  lastDigestAt         DateTime?
+  lastDigestProvider   String?
+}
