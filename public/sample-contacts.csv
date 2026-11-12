@@ -1,0 +1,4 @@
+name,company,email,url,channel,status,tags,notes,nextFollowUpAt,lastTouchedAt
+Jordan Hale,Fieldnote,jordan@fieldnote.example,https://fieldnote.example,Email,Contacted,"warm, saas","Asked for a homepage teardown after the newsletter.",2026-11-09,2026-11-02
+Ren Sato,Noonlight,ren@noonlight.example,https://noonlight.example,LinkedIn,New,cold,First outreach not sent yet.,2026-11-12,
+Amelia Cruz,Harbor Press,amelia@harborpress.example,https://harborpress.example,Form,Replied,"inbound, publishing",Wants a quote for a series of landing pages.,2026-11-07,2026-11-05
